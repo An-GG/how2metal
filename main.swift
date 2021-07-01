@@ -3,7 +3,7 @@ import Metal
 let gpus = MTLCopyAllDevices()
 let radeon = gpus[0]
 
-radeon.name
+print("Using GPU: " + radeon.name)
 
 let libraryFile = Bundle.main.path(forResource: "compute", ofType: "metallib")!
 let lib = try radeon.makeLibrary(filepath: libraryFile)
@@ -13,7 +13,9 @@ let commandBuffer = commandQueue.makeCommandBuffer()!
 let commandEncoder = commandBuffer.makeComputeCommandEncoder()!
 
 
-lib.functionNames
+print("Lib Methods: ")
+print(lib.functionNames)
+
 let addFunction = lib.makeFunction(name: lib.functionNames[0])!
 let addPipeline = try radeon.makeComputePipelineState(function: addFunction)
 commandEncoder.setComputePipelineState(addPipeline)
